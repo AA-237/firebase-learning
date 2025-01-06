@@ -9,7 +9,9 @@ import {
   Paper,
 } from '@mui/material';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebase'; // Adjust the path based on your structure
+import { db } from '../firebase';
+
+
 
 function BookingList() {
   const [bookings, setBookings] = useState([]);

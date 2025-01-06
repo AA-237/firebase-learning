@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "@firebase/firestore";
+// import { getAnalytics } from "firebase/analytics";
+import { getFirestore, enableIndexedDbPersistence } from "@firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCqQDqxevp_KODvfUBpH6QOjEPY3rgU-Jw",
@@ -15,8 +15,17 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 const db = getFirestore(app);
+
+// Enable offline persistence
+enableIndexedDbPersistence(db).catch((err) => {
+  if (err.code === "failed-precondition") {
+    console.log("Multiple tabs open, persistence can only be enabled in one tab.");
+  } else if (err.code === "unimplemented") {
+    console.log("The current browser does not support offline persistence.");
+  }
+});
 
 
 export { app, db};
